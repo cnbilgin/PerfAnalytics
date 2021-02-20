@@ -29,24 +29,24 @@ router.post("/", function (req, res) {
 
 router.get("/", function (req, res, next) {
    const getFilter = () => {
-      // const filter = {
-      //    date: {}
-      // }
-      // if(req.query.min)
-      //    filter.date.$qte = new Date(req.query.min).toString();
-      // else {
-      //    const date = new Date();
-      //    date.setMinutes(date.getMinutes() - 30)
-      //    filter.date.$qte = date.toString();
-      // }
+      const filter = {
+         date: {}
+      }
+      if(req.query.startDate)
+         filter.date.$gte = new Date(req.query.startDate);
+      else {
+         const date = new Date();
+         date.setMinutes(date.getMinutes() - 30)
+         filter.date.$gte = date;
+      }
 
-      // filter.date.$lte = (req.query.max ? new Date(req.query.max) : new Date).toString();
-      // return filter;
-
-      return {};
+      filter.date.$lte = (req.query.endDate ? new Date(req.query.endDate) : new Date);
+		console.log(filter);
+      return filter;
    }
    
-	Analytic.find(getFilter()).select("dom_load window_load ttfb fcp date")
+	// Analytic.find(getFilter()).select("dom_load window_load ttfb fcp date")
+	Analytic.find(getFilter()).select("dom_load window_load ttfb fcp date resources")
 		.sort({ date: -1 })
 		.then((r) => {
 			res.json(r);
