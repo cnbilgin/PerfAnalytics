@@ -41,7 +41,6 @@ router.get("/", function (req, res, next) {
       }
 
       filter.date.$lte = (req.query.endDate ? new Date(req.query.endDate) : new Date);
-		console.log(filter);
       return filter;
    }
    
