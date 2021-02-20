@@ -4,13 +4,16 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const app = express();
 
 const analyticsRouter = require('./routes/analytics');
 
-const app = express();
 
 const db = require("./db");
 db();
+
+const cors = require('cors')
+app.use(cors())
 
 app.use(logger('dev'));
 app.use(express.json());
