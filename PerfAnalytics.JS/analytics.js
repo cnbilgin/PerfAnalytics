@@ -74,7 +74,7 @@ const PerfAnalytics = (apiUrl) => {
 			createDataFromPerformance();
 
 			console.log("beacon request", getAnlytics());
-			navigator.sendBeacon(apiUrl, JSON.stringify(getAnlytics));
+			navigator.sendBeacon(apiUrl, JSON.stringify(getAnlytics()));
 		});
 	};
 
