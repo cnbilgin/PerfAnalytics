@@ -1,5 +1,5 @@
 const express = require("express");
-const Analytic = require("../db/analytic");
+const analyticService = require("../services/analytics.service");
 const router = express.Router();
 
 router.post("/", function (req, res) {
@@ -10,54 +10,22 @@ router.post("/", function (req, res) {
 
 	model.date = new Date().toString();
 
-	new Analytic(model)
-		.save()
-		.then((analytic) => {
-			res.json({
-				message: "analytic saved",
-				data: analytic,
-			});
-		})
-		.catch((err) => {
-			res.status(500);
-			res.json({
-				message: "analytic not saved",
-				error: err,
-			});
-		});
+	analyticService.create(model).then(r=> {
+		res.json(r);
+	}).catch(err => {
+		res.status(500);
+		res.json(err)
+	})
 });
 
-//TODO: calculate avarage analytics on same second
-router.get("/", function (req, res, next) {
-   const getFilter = () => {
-      const filter = {
-         date: {}
-      }
-      if(!req.query.startDate && !req.query.endDate) {
-			const date = new Date();
-         date.setMinutes(date.getMinutes() - 30)
-         filter.date.$gte = date;
-			filter.date.$lte = new Date;
-		} else {
-			if(req.query.startDate)
-				filter.date.$gte = new Date(req.query.startDate);
-		
-			if(req.query.endDate)
-				filter.date.$lte = new Date(req.query.endDate);
-		}
-		
-      return filter;
-   }
-   
-	// Analytic.find(getFilter()).select("dom_load window_load ttfb fcp date")
-	Analytic.find(getFilter()).select("dom_load window_load ttfb fcp date resources")
-		.sort({ date: -1 })
-		.then((r) => {
-			res.json(r);
-		})
-		.catch((err) => {
-			res.status(500).send({err: err.message});
-		});
+
+router.get("/", function (req, res) {
+	analyticService.get({
+		startDate: req.query.startDate,
+		endDate: req.query.endDate
+	}).then((r) => res.json(r)).catch(err => {
+		res.status(500).send(err);
+	})
 });
 
 module.exports = router;
