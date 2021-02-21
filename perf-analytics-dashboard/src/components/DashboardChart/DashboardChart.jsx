@@ -38,9 +38,7 @@ export default function DashboardChart() {
 			resourceNames.forEach((name) => {
 				const value = item.resources.find((p) => p.name === name);
 				dateData.push(
-					value != null
-						? value.responseEnd - value.responseStart
-						: undefined
+					value != null ? value.responseEnd - value.responseStart : null
 				);
 			});
 			chartData.push(dateData);
