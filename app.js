@@ -27,6 +27,8 @@ app.use('/analytics', analyticsRouter);
 //test page for creating data
 app.use("/test", express.static(path.resolve(__dirname, "./PerfAnalytics.TestPage")));
 
+["/", "/dashboard"].forEach(p=> app.use(p, express.static(path.resolve(__dirname, "./dashboard"))));
+
 //for client use
 app.get('/analytics.js', (req, res) => {
    res.sendFile(path.resolve(__dirname, './PerfAnalytics.JS', 'analytics.js'));
