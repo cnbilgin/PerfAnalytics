@@ -27,6 +27,7 @@ router.post("/", function (req, res) {
 		});
 });
 
+//TODO: calculate avarage analytics on same second
 router.get("/", function (req, res, next) {
    const getFilter = () => {
       const filter = {

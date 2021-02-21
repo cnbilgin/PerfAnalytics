@@ -12,6 +12,9 @@ const analyticsRouter = require('./routes/analytics');
 const db = require("./db");
 db();
 
+const compression = require('compression');
+app.use(compression());
+
 const cors = require('cors')
 app.use(cors())
 

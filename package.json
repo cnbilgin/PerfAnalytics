@@ -4,10 +4,16 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "debug": "DEBUG=perfanalytics:* npm start"
+    "debug": "DEBUG=perfanalytics:* npm start",
+    "build:dashboard": "cd perf-analytics-dashboard && rm -rf build && npm install && npm run build && cd ..",
+    "copy:dashboard": "rm -rf dashboard && mkdir dashboard && cp -R perf-analytics-dashboard/build/* ./dashboard/ && cd ..",
+    "build": "npm run build:dashboard && npm run copy:dashboard",
+    "install:dashboard": "cd perf-analytics-dashboard && npm install && cd ..",
+    "install:all": "npm install && npm run install:dashboard"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
