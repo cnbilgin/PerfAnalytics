@@ -1,3 +1,5 @@
 ./node_modules
 ./perf-analytics-dashboard/node_modules
 ./perf-analytics-dashboard/build
+
+.DS_Store
