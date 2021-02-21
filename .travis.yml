@@ -17,4 +17,4 @@ deploy:
   api_key: $HEROKU_PASSWORD
   app: $HEROKU_APPNAME
   on:
-    branches: main
+    branch: main
