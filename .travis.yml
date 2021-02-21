@@ -4,11 +4,11 @@ node_js:
 services:
   - docker
 before_install:
-  # - npm install -g npm
+  - npm install -g npm
   - docker login -u "$HEROKU_USERNAME" --password=$HEROKU_PASSWORD registry.heroku.com
 script:
-  # - npm install
-  # - npm run build
+  - npm install
+  - npm run test
   - docker build -t cnbilgin/perfanalytics .
   - docker tag cnbilgin/perfanalytics registry.heroku.com/$HEROKU_APPNAME/web 
 
