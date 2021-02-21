@@ -33,15 +33,19 @@ router.get("/", function (req, res, next) {
       const filter = {
          date: {}
       }
-      if(req.query.startDate)
-         filter.date.$gte = new Date(req.query.startDate);
-      else {
-         const date = new Date();
+      if(!req.query.startDate && !req.query.endDate) {
+			const date = new Date();
          date.setMinutes(date.getMinutes() - 30)
          filter.date.$gte = date;
-      }
-
-      filter.date.$lte = (req.query.endDate ? new Date(req.query.endDate) : new Date);
+			filter.date.$lte = new Date;
+		} else {
+			if(req.query.startDate)
+				filter.date.$gte = new Date(req.query.startDate);
+		
+			if(req.query.endDate)
+				filter.date.$lte = new Date(req.query.endDate);
+		}
+		
       return filter;
    }
    
