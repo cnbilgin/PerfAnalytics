@@ -10,6 +10,7 @@
     "build": "npm run build:dashboard && npm run copy:dashboard",
     "install:dashboard": "cd perf-analytics-dashboard && npm install && cd ..",
     "install:all": "npm install && npm run install:dashboard",
+    "start:dashboard": "cd perf-analytics-dashboard && npm run start",
     "test": "jest"
   },
   "dependencies": {
